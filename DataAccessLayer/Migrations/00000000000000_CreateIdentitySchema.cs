@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace BedBoxWeb.Data.Migrations
+namespace DataAccessLayer
 {
     public partial class CreateIdentitySchema : Migration
     {
