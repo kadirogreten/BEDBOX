@@ -9,6 +9,7 @@ namespace ServiceLayer
     public interface IRepository<TEntity> where TEntity : class
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<IEnumerable<TEntity>> WhereAsync(Expression<Func<TEntity, bool>> predicate);
         IEnumerable<TEntity> GetAll();
         IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>> predicate);
         void Insert(TEntity entity);

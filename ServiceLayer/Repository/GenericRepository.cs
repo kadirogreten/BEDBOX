@@ -34,6 +34,10 @@ namespace ServiceLayer
 
             return _context.Set<TEntity>().Where(predicate);
         }
+        public async Task<IEnumerable<TEntity>> WhereAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await Task.FromResult(_context.Set<TEntity>().Where(predicate));
+        }
 
         public void Insert(TEntity entity)
         {

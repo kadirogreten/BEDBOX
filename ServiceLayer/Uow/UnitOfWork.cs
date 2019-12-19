@@ -3,6 +3,7 @@ using ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ServiceLayer
 {
@@ -15,22 +16,35 @@ namespace ServiceLayer
         {
             _context = context;
 
-            BoxRepository = new BoxRepository(_context);
+            IBoxRepository = new BoxRepository(_context);
+            IOrderRepository = new OrderRepository(_context);
+            IAddressRepository = new AddressRepository(_context);
+            ICategoryRepository = new CategoryRepository(_context);
+            IProductRepository = new ProductRepository(_context);
 
         }
 
-        public IBoxRepository BoxRepository { get; private set; }
-      
+        public IBoxRepository IBoxRepository { get; private set; }
 
-        public int Complete()
+        public IOrderRepository IOrderRepository { get; private set; }
+
+        public IAddressRepository IAddressRepository { get; private set; }
+
+        public ICategoryRepository ICategoryRepository { get; private set; }
+
+        public IProductRepository IProductRepository { get; private set; }
+
+        public async Task<int> Complete()
         {
-            return _context.SaveChanges();
+            return await _context.SaveChangesAsync();
         }
 
-        public void Dispose()
+        public async void Dispose()
         {
-            _context.Dispose();
+           await _context.DisposeAsync();
 
         }
+
+       
     }
 }

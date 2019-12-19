@@ -31,13 +31,17 @@ namespace BedBoxWeb
             services.AddDbContext<BedBoxDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<BedBoxUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //services.AddDefaultIdentity<BedBoxUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<BedBoxDbContext>();
+            services.AddIdentity<BedBoxUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddDefaultTokenProviders()
+                .AddDefaultUI()
                 .AddEntityFrameworkStores<BedBoxDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddIdentity<BedBoxUser, IdentityRole>()
-               .AddEntityFrameworkStores<BedBoxDbContext>()
-               .AddDefaultTokenProviders();
+            
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

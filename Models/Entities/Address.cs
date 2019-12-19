@@ -14,7 +14,7 @@ namespace Models
         [StringLength(250)]
         public string FullAdress { get; set; }
         public AdressType AdressType { get; set; }
-        public virtual string UserId { get; set; }
+        public virtual string BedBoxUserUserId { get; set; }
         public virtual BedBoxUser BedBoxUser { get; set; }
         [StringLength(18)]
         public string Phone { get; set; }

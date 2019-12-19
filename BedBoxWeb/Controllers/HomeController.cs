@@ -6,21 +6,31 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BedBoxWeb.Models;
+using ServiceLayer;
+using DataAccessLayer;
 
 namespace BedBoxWeb.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly BedBoxDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(ILogger<HomeController> logger, BedBoxDbContext db)
         {
             _logger = logger;
+            _db = db;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            using (var uow = new UnitOfWork(_db))
+            {
+                var data = await uow.IAddressRepository.WhereAsync(a => a.City != "");
+
+                return View(data);
+            }
         }
 
         public IActionResult Privacy()
